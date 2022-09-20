@@ -10,19 +10,15 @@ var db = firebase.firestore();
 function runFunction() {
     const n = document.getElementById("n-value").value
     const m = document.getElementById("m-value").value
-    writeFunction(n,m)
+    writeUserData(n,m)
 }
 
-function writeFunction(naam, bericht) {
-    // Add a new document in collection "cities"
-    db.collection("berichten").add({
-        naam: naam,
-        bericht: bericht
-    })
-    .then(function() {
-        console.log("Bericht succesvol verstuurd!");
-    })
-    .catch(function(error) {
-        console.error("Fout: ", error);
-    });
+import { getDatabase, ref, set } from "firebase/database";
+
+function writeUserData(name, message) {
+  const db = getDatabase();
+  set(ref(db), {
+    username: name,
+    message: message
+  });
 }
